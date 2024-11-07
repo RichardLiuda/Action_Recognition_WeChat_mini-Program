@@ -15,9 +15,9 @@
     <button class="add-button" bindtype="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
         添加动作…
     </button>
-    <scroll-view class="scrollx-box" scroll-x>
-        <!-- <view wx:for="{{tabs}}" wx:key="index" class="tab-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabClick" data-index="{{index}}">
+    <scroll-view class="scrollx-box" scroll-x enable-flex>
+        <view wx:for="{{tabs}}" wx:key="index" class="scrollx-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabClick" data-index="{{index}}">
             {{item}}
-        </view> -->
+        </view>
     </scroll-view>
 </view>

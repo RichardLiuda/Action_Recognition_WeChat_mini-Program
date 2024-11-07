@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 page {
 	.scrollx-box {
 		display: flex;
@@ -6,21 +8,22 @@ page {
 		height: 80rpx;
 		width: auto;
 		box-sizing: border-box;
+		margin: 30rpx 40rpx;
 	}
 	.scrollx-item {
-		display: inline-block;
-		padding: 0 20rpx;
-		height: 80rpx;
-		line-height: 80rpx;
-		font-size: 30rpx;
+		padding: 8px 16px;
+		background-color: $lightwhite;
 		color: #333;
-		background-color: #e5e7e9;
-		border-radius: 30rpx;
-		box-sizing: border-box;
+		font-size: 16px;
+		border-radius: 20px;
+		margin-right: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
-	.item.active {
+	.scrollx-item.active {
 		// 选中项的样式
-		background-color: #0a59f7;
+		background-color: $ddarker-border-color;
 		color: #fff;
 	}
 }

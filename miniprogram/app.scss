@@ -1,11 +1,7 @@
 /**app.wxss**/
+@import 'colors.scss';
 
 $spread-shadow: 0px 4px 40px 1px rgba(0, 0, 0, 0.1);
-$lightblue: #ffffff;
-$background-color: #defcf9;
-$border-color: #cadefc;
-$darker-border-color: #c3bef0;
-$ddarker-border-color: #cca8e9;
 
 page {
 	background-color: $background-color;
