@@ -16,8 +16,8 @@
         添加动作…
     </button>
     <scroll-view class="scrollx-box" scroll-x>
-        <view wx:for="{{tabs}}" wx:key="index" class="tab-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabClick" data-index="{{index}}">
+        <!-- <view wx:for="{{tabs}}" wx:key="index" class="tab-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabClick" data-index="{{index}}">
             {{item}}
-        </view>
+        </view> -->
     </scroll-view>
 </view>
