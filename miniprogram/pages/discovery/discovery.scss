@@ -1,0 +1,26 @@
+page {
+	.scrollx-box {
+		display: flex;
+		overflow-x: scroll;
+		white-space: nowrap;
+		height: 80rpx;
+		width: auto;
+		box-sizing: border-box;
+	}
+	.scrollx-item {
+		display: inline-block;
+		padding: 0 20rpx;
+		height: 80rpx;
+		line-height: 80rpx;
+		font-size: 30rpx;
+		color: #333;
+		background-color: #e5e7e9;
+		border-radius: 30rpx;
+		box-sizing: border-box;
+	}
+	.item.active {
+		// 选中项的样式
+		background-color: #0a59f7;
+		color: #fff;
+	}
+}

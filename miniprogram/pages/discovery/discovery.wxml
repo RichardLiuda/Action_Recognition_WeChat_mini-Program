@@ -1,0 +1,23 @@
+<!-- <view class="custom-navbar">
+    <view class="back-button" bindtap="onBack">返回</view>
+    <view class="title">发现</view>
+</view> -->
+<page-meta>
+    <navigation-bar title="发现" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view>
+    <view class="search-container">
+        <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" />
+        <button class="search-button" bindtap="onSearch">
+            <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
+        </button>
+    </view>
+    <button class="add-button" bindtype="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
+        添加动作…
+    </button>
+    <scroll-view class="scrollx-box" scroll-x>
+        <view wx:for="{{tabs}}" wx:key="index" class="tab-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabClick" data-index="{{index}}">
+            {{item}}
+        </view>
+    </scroll-view>
+</view>

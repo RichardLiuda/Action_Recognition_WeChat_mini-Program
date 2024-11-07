@@ -1,0 +1,11 @@
+<page-meta>
+    <navigation-bar title="学习" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view>
+    <view class="search-container">
+        <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" />
+        <button class="search-button" bindtap="onSearch">
+            <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
+        </button>
+    </view>
+</view>

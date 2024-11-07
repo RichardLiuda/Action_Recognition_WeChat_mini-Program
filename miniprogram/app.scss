@@ -1,0 +1,82 @@
+/**app.wxss**/
+
+$spread-shadow: 0px 4px 40px 1px rgba(0, 0, 0, 0.1);
+$lightblue: #ffffff;
+$background-color: #defcf9;
+$border-color: #cadefc;
+$darker-border-color: #c3bef0;
+$ddarker-border-color: #cca8e9;
+
+page {
+	background-color: $background-color;
+	.container {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		padding: 200rpx 0;
+		box-sizing: border-box;
+	}
+
+	/* 搜索框容器 */
+	.search-container {
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		background-color: #dadcde;
+		border-radius: 24px;
+		margin: 10px;
+		box-shadow: $spread-shadow;
+	}
+
+	/* 输入框样式 */
+	.search-input {
+		flex: 1;
+		height: 30px;
+		padding: 0 10px;
+		font-size: 16px;
+		border: none;
+		outline: none;
+		background-color: transparent;
+		box-shadow: var(--spread-shadow);
+	}
+
+	/* 搜索按钮样式 */
+	.search-button {
+		padding: 0 15px;
+		font-size: 16px;
+		color: #fff;
+		background-color: transparent;
+		border-radius: 15px;
+		height: 30px;
+		line-height: 30px;
+		width: 100rpx;
+		position: relative;
+	}
+
+	.search-icon {
+		height: 20px;
+		width: 20px;
+		position: absolute;
+		// left: 50%;
+		// transform: translateX(-50%);
+		top: 50%;
+		transform: translateY(-50%);
+		margin: 0 -20rpx;
+	}
+
+	.add-button {
+		border-radius: 30rpx;
+		align-items: center;
+		// padding: 0 50rpx;
+		margin: 0 30px;
+		width: auto;
+
+		background-color: $ddarker-border-color;
+		color: #fff;
+		font-size: 40rpx;
+		line-height: 100rpx;
+		box-shadow: $spread-shadow;
+	}
+}

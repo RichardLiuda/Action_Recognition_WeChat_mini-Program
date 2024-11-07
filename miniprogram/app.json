@@ -1,0 +1,58 @@
+{
+    "pages": [
+        "pages/discovery/discovery",
+        "pages/index/index",
+        "pages/learning/learning",
+        "pages/community/community",
+        "pages/profile/profile",
+        "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/discovery/discovery",
+        "text": "发现",
+        "iconPath": "images/486w.jpg",
+        "selectedIconPath": "images/486o.jpg"
+      },
+      {
+        "pagePath": "pages/learning/learning",
+        "text": "学习",
+        "iconPath": "images/486w.jpg",
+        "selectedIconPath": "images/486o.jpg"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "社区",
+        "iconPath": "images/486w.jpg",
+        "selectedIconPath": "images/486o.jpg"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/486w.jpg",
+        "selectedIconPath": "images/486o.jpg"
+      }
+    ]
+  },
+  "style": "v2",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
