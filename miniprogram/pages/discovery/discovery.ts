@@ -2,7 +2,37 @@ Page({
 	data: {
 		searchQuery: '', // 保存用户输入的搜索关键词
 		tabs: ['关注', '体操区', '舞蹈区', '运动区', 'xx区'], // 选项数据，以后跟数据库链接
-		activeTab: 0 // 当前选中项的索引
+		activeTab: 0, // 当前选中项的索引
+		videoRows: [
+			[
+				{
+					id: 1,
+					thumbnail: '/images/video1.jpg',
+					title: '瑜伽第一组，静心冥坐',
+					description: '爱穿绿衣服'
+				},
+				{
+					id: 2,
+					thumbnail: '/images/video2.jpg',
+					title: '瑜伽第二组，静心冥坐的正确姿态',
+					description: '爱穿绿衣服'
+				}
+			],
+			[
+				{
+					id: 3,
+					thumbnail: '/images/video3.jpg',
+					title: '瑜伽第三组，过去年十年都做错了',
+					description: '爱穿绿衣服'
+				},
+				{
+					id: 4,
+					thumbnail: '/images/video4.jpg',
+					title: '瑜伽第四组，坚持锻炼，是练成好身材的关键',
+					description: '爱穿绿衣服'
+				}
+			]
+		]
 	},
 
 	// 获取输入框的内容
