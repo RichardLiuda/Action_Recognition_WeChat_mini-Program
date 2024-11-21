@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/discovery/discovery",
-        "pages/index/index",
+      "pages/discovery/discovery",
+      "pages/index/index",
         "pages/learning/learning",
         "pages/community/community",
         "pages/profile/profile",
@@ -20,26 +20,26 @@
       {
         "pagePath": "pages/discovery/discovery",
         "text": "发现",
-        "iconPath": "images/486w.jpg",
-        "selectedIconPath": "images/486o.jpg"
+        "iconPath": "images/icons/discovery.png",
+        "selectedIconPath": "images/icons/discovery_active.png"
       },
       {
         "pagePath": "pages/learning/learning",
         "text": "学习",
-        "iconPath": "images/486w.jpg",
-        "selectedIconPath": "images/486o.jpg"
+        "iconPath": "images/icons/learning.png",
+        "selectedIconPath": "images/icons/learning_active.png"
       },
       {
         "pagePath": "pages/community/community",
         "text": "社区",
-        "iconPath": "images/486w.jpg",
-        "selectedIconPath": "images/486o.jpg"
+        "iconPath": "images/icons/community.png",
+        "selectedIconPath": "images/icons/community_active.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "text": "我的",
-        "iconPath": "images/486w.jpg",
-        "selectedIconPath": "images/486o.jpg"
+        "iconPath": "images/icons/profile.png",
+        "selectedIconPath": "images/icons/profile_active.png"
       }
     ]
   },
