@@ -12,7 +12,7 @@
             <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
         </button>
     </view>
-    <button class="add-button" bindtype="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
+    <button class="add-button" bindtype="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="navigateToUpload">
         添加动作…
     </button>
     <scroll-view class="scrollx-box" scroll-x enable-flex>

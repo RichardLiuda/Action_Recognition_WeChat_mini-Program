@@ -176,7 +176,7 @@ Page({
 
 		// 例如：可以跳转到搜索结果页面并传递关键词
 		wx.navigateTo({
-			url: `/pages/search-results/search-results?query=${query}`
+			url: '/pages/search-results/search-results?query=${query}'
 		})
 	},
 
@@ -189,5 +189,11 @@ Page({
 			videoContentIndex: index
 		})
 		console.log('videoContentIndex=' + this.data.videoContentIndex)
+	},
+
+	navigateToUpload() {
+		wx.navigateTo({
+			url: '/pages/upload/upload'
+		})
 	}
 })
