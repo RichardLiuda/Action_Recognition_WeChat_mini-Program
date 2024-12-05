@@ -5,7 +5,8 @@
         "pages/learning/learning",
         "pages/community/community",
         "pages/profile/profile",
-        "pages/logs/logs"
+        "pages/logs/logs",
+        "pages/upload/upload"
   ],
   "window": {
     "navigationBarTextStyle": "black",

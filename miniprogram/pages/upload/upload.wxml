@@ -1,0 +1,3 @@
+<page-meta>
+    <navigation-bar title="发现" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
