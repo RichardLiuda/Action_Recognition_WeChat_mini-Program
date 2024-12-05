@@ -8,4 +8,25 @@
             <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
         </button>
     </view>
+    <view class="container">
+        <!-- 顶部导航栏 -->
+        <view class="nav-bar">
+            <text class="title">动作智识</text>
+        </view>
+        <!-- 标签切换 -->
+        <view class="tabs">
+            <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="onTabClick" data-tab="0">
+                我想学的
+            </view>
+            <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="onTabClick" data-tab="1">
+                我上传的
+            </view>
+        </view>
+        <!-- 图片网格 -->
+        <view class="grid">
+            <block wx:for="{{images}}" wx:key="index">
+                <image src="{{item}}" class="grid-item"></image>
+            </block>
+        </view>
+    </view>
 </view>
