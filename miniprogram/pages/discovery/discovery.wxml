@@ -23,7 +23,7 @@
     <view class="video-list">
         <view class="video-row" wx:for="{{videoRows[videoContentIndex]}}" wx:key="index">
             <block wx:for="{{item}}" wx:key="id">
-                <view class="video-card">
+                <view class="video-card" bindtap="onVideoTap" data-id="{{item.id}}">
                     <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
                     <view class="info">
                         <text class="title">{{item.title}}</text>

@@ -195,5 +195,12 @@ Page({
 		wx.navigateTo({
 			url: '/pages/upload/upload'
 		})
+	},
+
+	onVideoTap(event: any) {
+		const videoId = event.currentTarget.dataset.id;
+		wx.navigateTo({
+			url: `/pages/video-detail/video-detail?id=${videoId}`
+		});
 	}
 })

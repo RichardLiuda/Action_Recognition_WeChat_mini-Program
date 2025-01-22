@@ -1,0 +1,62 @@
+<page-meta>
+    <navigation-bar title="视频详情" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view class="container">
+    <view class="video-container">
+        <video wx:if="{{isPlaying}}" class="video" src="{{video.videoUrl}}" poster="{{video.thumbnail}}" object-fit="cover" show-center-play-btn="{{true}}" show-play-btn="{{true}}" controls enable-play-gesture enable-progress-gesture></video>
+        <image wx:else class="thumbnail" src="{{video.thumbnail}}" mode="aspectFill" bindtap="onPlayVideo" />
+        <view wx:if="{{!isPlaying}}" class="play-overlay" bindtap="onPlayVideo">
+            <view class="play-btn"></view>
+        </view>
+    </view>
+    <view class="info-container">
+        <view class="header">
+            <text class="title">{{video.title}}</text>
+            <view class="stats">
+                <text class="views">{{video.views}} 次观看</text>
+                <text class="dot">·</text>
+                <text class="date">{{video.createTime}}</text>
+            </view>
+        </view>
+        <view class="author-section">
+            <view class="author">
+                <image class="avatar" src="../../images/default-avatar.png" mode="aspectFill" />
+                <view class="author-info">
+                    <text class="name">{{video.author}}</text>
+                    <text class="followers">1.2k 粉丝</text>
+                </view>
+            </view>
+            <button class="follow-btn {{isFollowing ? 'following' : ''}}" bindtap="onFollowTap">
+                {{isFollowing ? '已关注' : '关注'}}
+            </button>
+        </view>
+        <view class="actions">
+            <view class="action-item">
+                <view class="action-btn {{hasLiked ? 'active' : ''}}" bindtap="onLikeTap">
+                    <image class="icon" src="../../images/{{hasLiked ? 'like_filled' : 'like'}}.png" mode="aspectFit" />
+                    <text>{{video.likes}}</text>
+                </view>
+                <text class="action-label">点赞</text>
+            </view>
+            <view class="action-item">
+                <view class="action-btn" bindtap="onCommentTap">
+                    <image class="icon" src="../../images/comment.png" mode="aspectFit" />
+                    <text>{{video.comments}}</text>
+                </view>
+                <text class="action-label">评论</text>
+            </view>
+            <view class="action-item">
+                <button class="share-btn" open-type="share">
+                    <view class="action-btn">
+                        <image class="icon" src="../../images/share.png" mode="aspectFit" />
+                        <text>分享</text>
+                    </view>
+                </button>
+            </view>
+        </view>
+        <view class="description-section">
+            <text class="description-title">视频介绍</text>
+            <text class="description">{{video.description}}</text>
+        </view>
+    </view>
+</view>

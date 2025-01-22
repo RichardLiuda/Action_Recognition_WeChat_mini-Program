@@ -6,7 +6,8 @@
         "pages/community/community",
         "pages/profile/profile",
         "pages/logs/logs",
-        "pages/upload/upload"
+        "pages/upload/upload",
+        "pages/video-detail/video-detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",
