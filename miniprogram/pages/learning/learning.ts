@@ -1,5 +1,6 @@
 Page({
 	data: {
+		searchQuery: '',
 		activeTab: 0, // 当前活动标签
 		images: [
 			// 我想学的
@@ -14,16 +15,79 @@ Page({
 			'https://example.com/upload1.jpg',
 			'https://example.com/upload2.jpg',
 			'https://example.com/upload3.jpg'
+		],
+		wantToLearnList: [
+			{
+				id: '1',
+				title: '瑜伽基础动作教学：鸽子式',
+				thumbnail: '../../images/video1.jpg',
+				author: '瑜伽教练小美',
+				views: 1000
+			},
+			{
+				id: '2',
+				title: '初级瑜伽系列：站姿前屈',
+				thumbnail: '../../images/video2.jpg',
+				author: '瑜伽教练小美',
+				views: 800
+			},
+			{
+				id: '3',
+				title: '瑜伽呼吸法：完整冥想指南',
+				thumbnail: '../../images/video3.jpg',
+				author: '瑜伽教练小美',
+				views: 1200
+			}
+		],
+		myUploadList: [
+			{
+				id: '4',
+				title: '瑜伽进阶：倒立教学',
+				thumbnail: '../../images/video4.jpg',
+				author: '我',
+				views: 500
+			},
+			{
+				id: '5',
+				title: '瑜伽拜日式教学',
+				thumbnail: '../../images/video5.jpg',
+				author: '我',
+				views: 600
+			}
 		]
 	},
+
+	onInput(e: any) {
+		this.setData({
+			searchQuery: e.detail.value
+		});
+	},
+
+	onSearch() {
+		const { searchQuery } = this.data;
+		// TODO: 实现搜索功能
+		wx.showToast({
+			title: '搜索功能开发中',
+			icon: 'none'
+		});
+	},
+
 	// 切换标签
-	onTabClick(e: WechatMiniprogram.BaseEvent) {
-		const tab = parseInt(e.currentTarget.dataset.tab)
+	onTabClick(e: any) {
+		const tab = parseInt(e.currentTarget.dataset.tab);
 		this.setData({
 			activeTab: tab,
 			images: tab === 0 ? this.data.images : this.data.myUploads
-		})
+		});
 	},
+
+	onVideoTap(e: any) {
+		const { id } = e.currentTarget.dataset;
+		wx.navigateTo({
+			url: `/pages/video-detail/video-detail?id=${id}`
+		});
+	},
+
 	onLoad(options) {},
 	onReady() {},
 	onShow() {},

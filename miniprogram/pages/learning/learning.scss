@@ -55,3 +55,63 @@
 	background-color: #007aff;
 	font-weight: bold;
 }
+
+/* 视频列表样式 */
+.video-list {
+	padding: 24rpx;
+	
+	.video-card {
+		background: #fff;
+		border-radius: 16rpx;
+		overflow: hidden;
+		margin-bottom: 24rpx;
+		box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.03);
+		
+		.video-cover {
+			width: 100%;
+			height: 360rpx;
+			display: block;
+		}
+		
+		.video-info {
+			padding: 20rpx;
+			
+			.video-title {
+				font-size: 32rpx;
+				color: #333;
+				font-weight: 500;
+				line-height: 1.4;
+				margin-bottom: 12rpx;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
+			}
+			
+			.video-stats {
+				display: flex;
+				align-items: center;
+				font-size: 26rpx;
+				color: #999;
+				
+				.author {
+					color: #666;
+					font-weight: 500;
+				}
+				
+				.dot {
+					margin: 0 8rpx;
+				}
+				
+				.views {
+					color: #999;
+				}
+			}
+		}
+		
+		&:active {
+			transform: scale(0.98);
+			transition: transform 0.2s;
+		}
+	}
+}

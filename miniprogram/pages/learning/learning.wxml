@@ -18,10 +18,33 @@
                 我上传的
             </view>
         </view>
-        <!-- 图片网格 -->
-        <view class="grid">
-            <block wx:for="{{images}}" wx:key="index">
-                <image src="{{item}}" class="grid-item"></image>
+        <!-- 视频列表 -->
+        <view class="video-list">
+            <block wx:if="{{activeTab === 0}}">
+                <view class="video-card" wx:for="{{wantToLearnList}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
+                    <image class="video-cover" src="{{item.thumbnail}}" mode="aspectFill" />
+                    <view class="video-info">
+                        <text class="video-title">{{item.title}}</text>
+                        <view class="video-stats">
+                            <text class="author">{{item.author}}</text>
+                            <text class="dot">·</text>
+                            <text class="views">{{item.views}}次观看</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="video-card" wx:for="{{myUploadList}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
+                    <image class="video-cover" src="{{item.thumbnail}}" mode="aspectFill" />
+                    <view class="video-info">
+                        <text class="video-title">{{item.title}}</text>
+                        <view class="video-stats">
+                            <text class="author">{{item.author}}</text>
+                            <text class="dot">·</text>
+                            <text class="views">{{item.views}}次观看</text>
+                        </view>
+                    </view>
+                </view>
             </block>
         </view>
     </view>
