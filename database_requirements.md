@@ -1,6 +1,38 @@
 # 微信小程序数据库需求文档
 
-## 数据库需求来源文件参考
+## 一、前后端对接规范
+
+### 1. 通用响应格式
+```json
+{
+  "code": 200,          // 状态码：200成功，400请求错误，401未授权，500服务器错误
+  "message": "success", // 状态描述
+  "data": {            // 具体数据
+    // 具体字段
+  }
+}
+```
+
+### 2. 分页参数规范
+```json
+{
+  "page": 1,        // 当前页码，从1开始
+  "pageSize": 10,   // 每页条数
+  "total": 100,     // 总条数
+  "items": []       // 具体数据列表
+}
+```
+
+### 3. 时间格式
+所有时间字段统一使用 ISO 8601 格式：`YYYY-MM-DDTHH:mm:ss.sssZ`
+
+### 4. 文件上传
+- 使用 multipart/form-data 格式
+- 视频文件支持格式：mp4, mov
+- 图片文件支持格式：jpg, png, gif
+- 单个文件大小限制：视频50MB，图片5MB
+
+## 二、数据库表设计及接口定义
 
 ### 1. 用户表 (users)
 需求来源：
@@ -206,4 +238,400 @@
 4. 学习记录相关：
    - GET /api/learning-records - 获取学习记录
    - POST /api/learning-records - 创建/更新学习记录
-   - GET /api/learning-records/:video_id/progress - 获取特定视频的学习进度 
+   - GET /api/learning-records/:video_id/progress - 获取特定视频的学习进度
+
+## 三、接口详细定义
+
+### 1. 用户相关接口
+
+#### 1.1 获取用户信息
+```typescript
+GET /api/users/:id
+
+// 响应示例
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "id": "string",
+    "nickname": "string",
+    "avatar_url": "string",
+    "following_count": 0,
+    "followers_count": 0,
+    "likes_count": 0
+  }
+}
+
+// 调用示例 (miniprogram/pages/video-detail/video-detail.ts 第17-19行)
+wx.request({
+  url: `${BASE_URL}/api/users/${userId}`,
+  method: 'GET',
+  success: (res) => {
+    if (res.data.code === 200) {
+      this.setData({
+        'video.author': res.data.data.nickname
+      });
+    }
+  }
+});
+```
+
+#### 1.2 更新用户信息
+```typescript
+PUT /api/users/:id
+Content-Type: application/json
+
+// 请求体
+{
+  "nickname": "string",
+  "avatar_url": "string"
+}
+
+// 响应示例
+{
+  "code": 200,
+  "message": "success",
+  "data": null
+}
+```
+
+### 2. 视频相关接口
+
+#### 2.1 获取视频列表
+```typescript
+GET /api/videos
+参数：
+- page: number       // 页码
+- pageSize: number   // 每页条数
+- category_id: string // 分类ID
+- user_id: string    // 用户ID，获取用户上传的视频
+
+// 响应示例
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "page": 1,
+    "pageSize": 10,
+    "total": 100,
+    "items": [{
+      "id": "string",
+      "title": "string",
+      "thumbnail_url": "string",
+      "author": {
+        "id": "string",
+        "nickname": "string",
+        "avatar_url": "string"
+      },
+      "views_count": 0,
+      "likes_count": 0,
+      "comments_count": 0
+    }]
+  }
+}
+
+// 调用示例 (miniprogram/pages/discovery/discovery.ts 第15-93行)
+wx.request({
+  url: `${BASE_URL}/api/videos`,
+  method: 'GET',
+  data: {
+    page: 1,
+    pageSize: 10,
+    category_id: this.data.activeTab
+  },
+  success: (res) => {
+    if (res.data.code === 200) {
+      this.setData({
+        videoRows: this.formatVideoRows(res.data.data.items)
+      });
+    }
+  }
+});
+```
+
+#### 2.2 上传视频
+```typescript
+POST /api/videos
+Content-Type: multipart/form-data
+
+// 表单字段
+- title: string          // 视频标题
+- description: string    // 视频描述
+- category_id: string    // 分类ID
+- visibility: string     // 可见性
+- video_file: File       // 视频文件
+- thumbnail_file: File   // 缩略图文件
+
+// 响应示例
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "id": "string",
+    "video_url": "string",
+    "thumbnail_url": "string"
+  }
+}
+
+// 调用示例 (miniprogram/pages/upload/upload.ts 第39-60行)
+wx.uploadFile({
+  url: `${BASE_URL}/api/videos`,
+  filePath: tempFilePath,
+  name: 'video_file',
+  formData: {
+    title: this.data.title,
+    description: this.data.description,
+    category_id: this.data.categoryId,
+    visibility: this.data.visibility
+  },
+  success: (res) => {
+    const data = JSON.parse(res.data);
+    if (data.code === 200) {
+      wx.showToast({ title: '上传成功' });
+    }
+  }
+});
+```
+
+## 四、错误码定义
+
+### 1. 通用错误码
+- 200: 成功
+- 400: 请求参数错误
+- 401: 未授权
+- 403: 权限不足
+- 404: 资源不存在
+- 500: 服务器错误
+
+### 2. 业务错误码
+- 1001: 用户未登录
+- 1002: 用户不存在
+- 1003: 视频不存在
+- 1004: 分类不存在
+- 1005: 评论不存在
+- 1006: 文件上传失败
+- 1007: 文件格式不支持
+- 1008: 文件大小超限
+
+## 五、开发注意事项
+
+### 1. 安全性
+- 所有接口必须通过 HTTPS 访问
+- 需要登录的接口在 Header 中携带 token
+- 文件上传前先获取临时上传凭证
+
+### 2. 异常处理
+- 网络请求超时设置为15秒
+- 请求失败后最多重试3次
+- 上传大文件支持断点续传
+- 统一的错误提示处理
+
+## 数据库插入位置详细说明（MySQL）
+
+### 1. 用户表 (users)
+```sql
+CREATE TABLE users (
+    id VARCHAR(32) PRIMARY KEY,
+    openid VARCHAR(32) UNIQUE NOT NULL,
+    nickname VARCHAR(50) NOT NULL,
+    avatar_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    following_count INT DEFAULT 0,
+    followers_count INT DEFAULT 0,
+    likes_count INT DEFAULT 0,
+    deleted_at TIMESTAMP NULL,
+    INDEX idx_nickname (nickname),
+    INDEX idx_openid (openid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+数据插入位置及SQL示例：
+1. 用户基本信息 (`miniprogram/pages/video-detail/video-detail.ts` 第17-19行)
+```sql
+-- 查询用户信息
+SELECT nickname, avatar_url FROM users WHERE id = ? AND deleted_at IS NULL;
+
+-- 前端展示代码
+this.setData({
+    'commentList[0].username': result.nickname
+});
+```
+
+2. 关注状态 (`miniprogram/pages/video-detail/video-detail.ts` 第14行)
+```sql
+-- 查询是否关注
+SELECT COUNT(*) as is_following 
+FROM follows 
+WHERE follower_id = ? AND following_id = ? AND deleted_at IS NULL;
+
+-- 前端展示代码
+this.setData({
+    isFollowing: result.is_following > 0
+});
+```
+
+### 2. 视频表 (videos)
+```sql
+CREATE TABLE videos (
+    id VARCHAR(32) PRIMARY KEY,
+    user_id VARCHAR(32) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    video_url VARCHAR(255) NOT NULL,
+    thumbnail_url VARCHAR(255),
+    category_id VARCHAR(32) NOT NULL,
+    visibility ENUM('public', 'friends', 'private') DEFAULT 'public',
+    views_count INT DEFAULT 0,
+    likes_count INT DEFAULT 0,
+    comments_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    INDEX idx_user_id (user_id),
+    INDEX idx_category_id (category_id),
+    INDEX idx_created_at (created_at),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+数据插入位置及SQL示例：
+1. 视频列表数据 (`miniprogram/pages/discovery/discovery.ts` 第15-93行)
+```sql
+-- 查询视频列表
+SELECT 
+    v.id, v.title, v.thumbnail_url,
+    u.nickname as author_name,
+    u.avatar_url as author_avatar,
+    v.views_count, v.likes_count, v.comments_count
+FROM videos v
+JOIN users u ON v.user_id = u.id
+WHERE v.category_id = ? 
+    AND v.visibility = 'public'
+    AND v.deleted_at IS NULL
+ORDER BY v.created_at DESC
+LIMIT ?, ?;
+
+-- 前端展示代码
+this.setData({
+    videoRows: this.formatVideoRows(results)
+});
+```
+
+2. 视频详情 (`miniprogram/pages/video-detail/video-detail.ts` 第49-58行)
+```sql
+-- 查询视频详情
+SELECT 
+    v.*,
+    u.nickname as author_name,
+    u.avatar_url as author_avatar
+FROM videos v
+JOIN users u ON v.user_id = u.id
+WHERE v.id = ? AND v.deleted_at IS NULL;
+
+-- 更新观看次数
+UPDATE videos 
+SET views_count = views_count + 1 
+WHERE id = ?;
+
+-- 前端展示代码
+this.setData({
+    video: {
+        ...result,
+        author: result.author_name
+    }
+});
+```
+
+### 3. 评论表 (comments)
+```sql
+CREATE TABLE comments (
+    id VARCHAR(32) PRIMARY KEY,
+    video_id VARCHAR(32) NOT NULL,
+    user_id VARCHAR(32) NOT NULL,
+    content TEXT NOT NULL,
+    likes_count INT DEFAULT 0,
+    reply_count INT DEFAULT 0,
+    parent_id VARCHAR(32),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    INDEX idx_video_id (video_id),
+    INDEX idx_user_id (user_id),
+    INDEX idx_parent_id (parent_id),
+    FOREIGN KEY (video_id) REFERENCES videos(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (parent_id) REFERENCES comments(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+数据插入位置及SQL示例：
+1. 评论列表 (`miniprogram/pages/video-detail/video-detail.ts` 第17-39行)
+```sql
+-- 查询评论列表
+SELECT 
+    c.*,
+    u.nickname as username,
+    u.avatar_url,
+    (SELECT COUNT(*) FROM likes 
+     WHERE target_id = c.id 
+     AND target_type = 'comment' 
+     AND user_id = ?) as has_liked
+FROM comments c
+JOIN users u ON c.user_id = u.id
+WHERE c.video_id = ? 
+    AND c.parent_id IS NULL
+    AND c.deleted_at IS NULL
+ORDER BY c.created_at DESC
+LIMIT ?, ?;
+
+-- 前端展示代码
+this.setData({
+    commentList: results.map(item => ({
+        id: item.id,
+        username: item.username,
+        content: item.content,
+        time: formatTime(item.created_at),
+        likes: item.likes_count,
+        hasLiked: item.has_liked > 0,
+        replyCount: item.reply_count
+    }))
+});
+```
+
+[其他表的 SQL 和具体实现保持不变...]
+
+## 性能优化建议
+
+### 1. 索引优化
+```sql
+-- 为经常查询的字段添加复合索引
+ALTER TABLE videos ADD INDEX idx_category_created (category_id, created_at);
+ALTER TABLE comments ADD INDEX idx_video_created (video_id, created_at);
+```
+
+### 2. 分页优化
+```sql
+-- 使用 id 分页代替 OFFSET
+SELECT * FROM videos 
+WHERE id > ? AND category_id = ?
+ORDER BY id ASC LIMIT ?;
+```
+
+### 3. 缓存策略
+```sql
+-- 热门视频列表缓存
+-- Redis Key: hot_videos_${category_id}
+SELECT id, title, thumbnail_url 
+FROM videos 
+WHERE category_id = ? 
+ORDER BY views_count DESC 
+LIMIT 10;
+
+-- 用户信息缓存
+-- Redis Key: user_info_${user_id}
+SELECT id, nickname, avatar_url 
+FROM users 
+WHERE id = ?;
+```

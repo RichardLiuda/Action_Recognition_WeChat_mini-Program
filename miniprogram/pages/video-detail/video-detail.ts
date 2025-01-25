@@ -148,5 +148,24 @@ Page({
       commentList: sortedList,
       isAscending: !isAscending
     });
+  },
+
+  onStartLearning() {
+    wx.redirectTo({
+      url: '/pages/camera/camera',
+      success: () => {
+        wx.showToast({
+          title: '请对准摄像头',
+          icon: 'none'
+        });
+      },
+      fail: (err) => {
+        console.error('跳转失败:', err);
+        wx.showToast({
+          title: '打开相机失败',
+          icon: 'none'
+        });
+      }
+    });
   }
 }); 

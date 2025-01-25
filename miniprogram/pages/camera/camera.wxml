@@ -1,0 +1,29 @@
+<camera class="camera" device-position="front" flash="off" frame-size="medium">
+    <!-- 顶部信息区域 -->
+    <view class="info-overlay">
+        <view class="score-section">
+            <view class="score-item">
+                <text class="label">准确度</text>
+                <text class="value">
+                    {{accuracy}}
+                    <text class="unit">%</text>
+                </text>
+            </view>
+            <view class="score-item">
+                <text class="label">完成度</text>
+                <text class="value">
+                    {{progress}}
+                    <text class="unit">%</text>
+                </text>
+            </view>
+        </view>
+        <view class="pose-info">
+            <text class="pose-name">{{poseName}}</text>
+            <text class="pose-tip">{{poseTip}}</text>
+        </view>
+    </view>
+    <!-- 退出按钮 -->
+    <view class="exit-btn" bindtap="onExitTap">
+        <icon type="clear" size="24" color="#fff" />
+    </view>
+</camera>
