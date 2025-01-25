@@ -18,13 +18,13 @@ Page({
 						id: 1,
 						thumbnail: '/images/video1.jpg',
 						title: '我的关注',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 2,
 						thumbnail: '/images/video2.jpg',
 						title: '我的关注',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				]
 			],
@@ -34,13 +34,13 @@ Page({
 						id: 1,
 						thumbnail: '/images/video1.jpg',
 						title: '体操区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 2,
 						thumbnail: '/images/video2.jpg',
 						title: '体操区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				],
 				[
@@ -48,13 +48,13 @@ Page({
 						id: 3,
 						thumbnail: '/images/video1.jpg',
 						title: '体操区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 4,
 						thumbnail: '/images/video2.jpg',
 						title: '体操区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				]
 			],
@@ -64,13 +64,13 @@ Page({
 						id: 1,
 						thumbnail: '/images/video1.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 2,
 						thumbnail: '/images/video2.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				],
 				[
@@ -78,13 +78,13 @@ Page({
 						id: 3,
 						thumbnail: '/images/video1.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 4,
 						thumbnail: '/images/video2.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				],
 				[
@@ -92,13 +92,13 @@ Page({
 						id: 5,
 						thumbnail: '/images/video3.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 6,
 						thumbnail: '/images/video4.jpg',
 						title: '舞蹈区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				]
 			],
@@ -108,13 +108,13 @@ Page({
 						id: 1,
 						thumbnail: '/images/video1.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 2,
 						thumbnail: '/images/video2.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				],
 				[
@@ -122,13 +122,13 @@ Page({
 						id: 3,
 						thumbnail: '/images/video1.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 4,
 						thumbnail: '/images/video2.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				],
 				[
@@ -136,13 +136,13 @@ Page({
 						id: 5,
 						thumbnail: '/images/video3.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					},
 					{
 						id: 6,
 						thumbnail: '/images/video4.jpg',
 						title: '运动区',
-						description: '爱穿绿衣服'
+						author: '爱穿绿衣服'
 					}
 				]
 			]

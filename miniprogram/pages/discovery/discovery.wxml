@@ -27,7 +27,7 @@
                     <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
                     <view class="info">
                         <text class="title">{{item.title}}</text>
-                        <text class="description">\n{{item.description}}</text>
+                        <text class="description">\n{{item.author}}</text>
                     </view>
                 </view>
             </block>

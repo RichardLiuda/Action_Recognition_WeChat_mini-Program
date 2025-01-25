@@ -14,7 +14,37 @@ Page({
     },
     isPlaying: false,
     isFollowing: false,
-    hasLiked: false
+    hasLiked: false,
+    commentList: [
+      {
+        id: 1,
+        username: '用户1',
+        content: '这个动作讲解得很清楚，对初学者很有帮助！',
+        time: '2024-01-24 22:10',
+        likes: 0,
+        hasLiked: false,
+        replyCount: 1
+      },
+      {
+        id: 2,
+        username: '用户2',
+        content: '非常实用的教程，讲解很专业！',
+        time: '2024-01-24 22:15',
+        likes: 0,
+        hasLiked: false,
+        replyCount: 0
+      },
+      {
+        id: 3,
+        username: '用户3',
+        content: '动作要领讲解得很到位，学到了很多！',
+        time: '2024-01-24 22:20',
+        likes: 0,
+        hasLiked: false,
+        replyCount: 2
+      }
+    ],
+    isAscending: true
   },
 
   onLoad(options) {
@@ -91,5 +121,32 @@ Page({
       path: `/pages/video-detail/video-detail?id=${video.id}`,
       imageUrl: video.thumbnail
     };
+  },
+
+  onBackTap() {
+    wx.navigateBack();
+  },
+
+  onCommentLikeTap(event: any) {
+    const { index } = event.currentTarget.dataset;
+    const commentList = this.data.commentList;
+    const comment = commentList[index];
+    
+    comment.hasLiked = !comment.hasLiked;
+    comment.likes = comment.hasLiked ? comment.likes + 1 : comment.likes - 1;
+    
+    this.setData({ 
+      [`commentList[${index}]`]: comment 
+    });
+  },
+
+  onSortTap() {
+    const { commentList, isAscending } = this.data;
+    const sortedList = [...commentList].reverse();
+    
+    this.setData({
+      commentList: sortedList,
+      isAscending: !isAscending
+    });
   }
 }); 

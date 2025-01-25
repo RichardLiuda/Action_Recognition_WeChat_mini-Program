@@ -1,6 +1,8 @@
-<page-meta>
-    <navigation-bar title="视频详情" back="{{true}}" color="black" background="#FFF"></navigation-bar>
-</page-meta>
+<view class="nav-bar">
+    <view class="back-btn" bindtap="onBackTap">
+        <view class="back-arrow"></view>
+    </view>
+</view>
 <view class="container">
     <view class="video-container">
         <video wx:if="{{isPlaying}}" class="video" src="{{video.videoUrl}}" poster="{{video.thumbnail}}" object-fit="cover" show-center-play-btn="{{true}}" show-play-btn="{{true}}" controls enable-play-gesture enable-progress-gesture></video>
@@ -33,14 +35,14 @@
         <view class="actions">
             <view class="action-item">
                 <view class="action-btn {{hasLiked ? 'active' : ''}}" bindtap="onLikeTap">
-                    <image class="icon" src="../../images/{{hasLiked ? 'like_filled' : 'like'}}.png" mode="aspectFit" />
+                    <icon class="icon" type="{{hasLiked ? 'success' : 'success_no_circle'}}" size="18" color="{{hasLiked ? '#ff4b33' : '#333'}}" />
                     <text>{{video.likes}}</text>
                 </view>
                 <text class="action-label">点赞</text>
             </view>
             <view class="action-item">
                 <view class="action-btn" bindtap="onCommentTap">
-                    <image class="icon" src="../../images/comment.png" mode="aspectFit" />
+                    <icon class="icon" type="info" size="18" color="#333" />
                     <text>{{video.comments}}</text>
                 </view>
                 <text class="action-label">评论</text>
@@ -48,7 +50,7 @@
             <view class="action-item">
                 <button class="share-btn" open-type="share">
                     <view class="action-btn">
-                        <image class="icon" src="../../images/share.png" mode="aspectFit" />
+                        <icon class="icon" type="download" size="18" color="#333" />
                         <text>分享</text>
                     </view>
                 </button>
@@ -57,6 +59,39 @@
         <view class="description-section">
             <text class="description-title">视频介绍</text>
             <text class="description">{{video.description}}</text>
+        </view>
+        <view class="comments-section">
+            <view class="comments-header">
+                <text class="title">评论 ({{video.comments}})</text>
+                <view class="sort" bindtap="onSortTap">
+                    <text>{{isAscending ? '正序' : '倒序'}}</text>
+                    <text class="arrow">{{isAscending ? '▼' : '▲'}}</text>
+                </view>
+            </view>
+            <view class="comments-list">
+                <view class="comment-item" wx:for="{{commentList}}" wx:key="id">
+                    <image class="avatar" src="../../images/default-avatar.png" mode="aspectFill" />
+                    <view class="comment-content">
+                        <view class="comment-header">
+                            <text class="username">{{item.username}}</text>
+                            <text class="time">{{item.time}}</text>
+                        </view>
+                        <text class="text">{{item.content}}</text>
+                        <view class="comment-footer">
+                            <text class="reply-link" wx:if="{{item.replyCount > 0}}">
+                                全部{{item.replyCount}}条回复 >
+                            </text>
+                            <view class="like-btn" bindtap="onCommentLikeTap" data-index="{{index}}">
+                                <icon class="icon" type="{{item.hasLiked ? 'success' : 'success_no_circle'}}" size="14" color="{{item.hasLiked ? '#ff4b33' : '#666'}}" />
+                                <text class="{{item.hasLiked ? 'active' : ''}}">
+                                    {{item.likes}}
+                                </text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="bottom-text">我是有底线的</view>
         </view>
     </view>
 </view>
