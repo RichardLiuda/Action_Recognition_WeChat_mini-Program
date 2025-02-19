@@ -47,22 +47,41 @@ Page({
   },
 
   getPoseData() {
-    // 模拟初始数据
+    // 使用示例数据
     this.setData({
       poseName: '鸽子式',
-      poseTip: '请保持髋部打开，脊柱挺直，呼吸均匀。'
+      poseTip: '请保持髋部打开，脊柱挺直，呼吸均匀。注意保持双肩放松，目光平视前方。'
     });
   },
 
   startReceivingPoseData() {
+    let timeElapsed = 0;
+    const totalTime = 15; // 15秒完成评测
+    
     // 模拟每秒接收实时数据
-    setInterval(() => {
+    const timer = setInterval(() => {
+      timeElapsed++;
+      
+      // 生成渐进式的数据
+      const progress = Math.min(Math.floor((timeElapsed / totalTime) * 100), 100);
+      const baseAccuracy = 85; // 基础准确度
+      const variance = 5; // 上下浮动范围
+      
+      // 模拟真实场景的准确度波动
+      const accuracy = baseAccuracy + Math.floor(Math.random() * variance * 2) - variance;
+
       this.updatePoseData({
-        accuracy: Math.floor(Math.random() * 20 + 80),
-        progress: Math.floor(Math.random() * 20 + 80),
+        accuracy,
+        progress,
         poseName: this.data.poseName,
         poseTip: this.data.poseTip
       });
+
+      // 评测完成后跳转到结果页
+      if (timeElapsed >= totalTime) {
+        clearInterval(timer);
+        this.onPoseComplete();
+      }
     }, 1000);
   },
 
@@ -70,6 +89,18 @@ Page({
     this.setData({
       accuracy: data.accuracy,
       progress: data.progress
+    });
+  },
+
+  onPoseComplete() {
+    wx.redirectTo({
+      url: '/pages/pose-result/pose-result',
+      success: () => {
+        wx.showToast({
+          title: '评测完成',
+          icon: 'success'
+        });
+      }
     });
   },
 

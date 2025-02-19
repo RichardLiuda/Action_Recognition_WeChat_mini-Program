@@ -1,0 +1,43 @@
+<view class="result-container">
+    <!-- 顶部分数展示 -->
+    <view class="score-section">
+        <view class="final-score">
+            <text class="score-value">{{finalScore}}</text>
+            <text class="score-label">总分</text>
+        </view>
+        <view class="score-details">
+            <view class="detail-item">
+                <text class="label">准确度</text>
+                <text class="value">{{accuracy}}%</text>
+            </view>
+            <view class="detail-item">
+                <text class="label">完成度</text>
+                <text class="value">{{completion}}%</text>
+            </view>
+            <view class="detail-item">
+                <text class="label">流畅度</text>
+                <text class="value">{{fluency}}%</text>
+            </view>
+        </view>
+    </view>
+    <!-- 评价结果 -->
+    <view class="evaluation-section">
+        <view class="section-title">动作评价</view>
+        <view class="evaluation-content">
+            <view class="evaluation-item" wx:for="{{evaluations}}" wx:key="part">
+                <view class="part-name">{{item.part}}</view>
+                <view class="suggestions">
+                    <view class="suggestion-item" wx:for="{{item.suggestions}}" wx:for-item="suggestion" wx:key="*this">
+                        <icon class="icon" type="info" size="14" color="#666" />
+                        <text>{{suggestion}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 底部按钮 -->
+    <view class="button-group">
+        <button class="retry-btn" bindtap="onRetryTap">重新练习</button>
+        <button class="back-btn" bindtap="onBackTap">返回视频</button>
+    </view>
+</view>

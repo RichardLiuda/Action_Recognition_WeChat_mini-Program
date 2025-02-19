@@ -57,18 +57,23 @@ Page({
 		]
 	},
 
-	onInput(e: any) {
-		this.setData({
-			searchQuery: e.detail.value
-		});
+	// 获取输入框的内容
+	onInput(event: any) {
+		const value = event.detail.value;
+		if (value.trim()) {
+			wx.navigateTo({
+				url: `/pages/search/search?query=${encodeURIComponent(value)}`
+			});
+			// 清空输入框
+			this.setData({
+				searchQuery: ''
+			});
+		}
 	},
 
 	onSearch() {
-		const { searchQuery } = this.data;
-		// TODO: 实现搜索功能
-		wx.showToast({
-			title: '搜索功能开发中',
-			icon: 'none'
+		wx.navigateTo({
+			url: '/pages/search/search'
 		});
 	},
 

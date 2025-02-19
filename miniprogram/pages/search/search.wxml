@@ -1,0 +1,46 @@
+<!-- 搜索页面 -->
+<page-meta>
+    <navigation-bar title="搜索" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view>
+    <!-- <view class="container"> -->
+    <!-- <view class="back-btn" bindtap="onBackTap">
+                <view class="back-arrow"></view>
+            </view> -->
+    <view class="search-container">
+        <icon type="search" size="14" color="#bfbfbf" />
+        <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" focus="{{true}}" />
+    </view>
+    <!-- 内容区域 -->
+    <scroll-view class="search-content" scroll-y enable-flex>
+        <!-- 搜索历史 -->
+        <view class="history-section" wx:if="{{!searchQuery && searchHistory.length > 0}}">
+            <view class="section-header">
+                <text class="title">历史搜索</text>
+                <view class="clear-btn" bindtap="clearHistory">
+                    <text>清空</text>
+                </view>
+            </view>
+            <view class="history-list">
+                <view class="history-item" wx:for="{{searchHistory}}" wx:key="*this" bindtap="onHistoryTap" data-query="{{item}}">
+                    <text>{{item}}</text>
+                </view>
+            </view>
+        </view>
+        <!-- 搜索结果 -->
+        <view class="search-results" wx:if="{{searchQuery}}">
+            <view class="result-item" wx:for="{{searchResults}}" wx:key="id" bindtap="onResultTap" data-id="{{item.id}}">
+                <image class="thumbnail" src="{{item.thumbnail}}" mode="aspectFill" />
+                <view class="info">
+                    <text class="title">{{item.title}}</text>
+                    <view class="stats">
+                        <text class="author">{{item.author}}</text>
+                        <text class="dot">·</text>
+                        <text class="views">{{item.views}}次观看</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <!-- </view> -->
+</view>

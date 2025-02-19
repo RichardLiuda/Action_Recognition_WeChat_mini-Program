@@ -1,13 +1,16 @@
 {
-    "pages": [
-      "pages/discovery/discovery",
-      "pages/index/index",
-        "pages/learning/learning",
-        "pages/community/community",
-        "pages/profile/profile",
-        "pages/logs/logs",
-        "pages/upload/upload",
-        "pages/video-detail/video-detail"
+  "pages": [
+    "pages/discovery/discovery",
+    "pages/index/index",
+    "pages/learning/learning",
+    "pages/community/community",
+    "pages/profile/profile",
+    "pages/logs/logs",
+    "pages/upload/upload",
+    "pages/video-detail/video-detail",
+    "pages/camera/camera",
+    "pages/pose-result/pose-result",
+    "pages/search/search"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -15,7 +18,7 @@
   },
   "tabBar": {
     "color": "#8a8a8a",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#0A59F7",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

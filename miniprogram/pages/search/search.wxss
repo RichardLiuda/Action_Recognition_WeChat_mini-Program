@@ -1,0 +1,151 @@
+.container {
+    min-height: 100vh;
+    background: #fff;
+    padding-top: env(safe-area-inset-top);
+}
+
+/* 头部区域样式 */
+.search-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: calc(env(safe-area-inset-top) + 8px) 0 8px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.back-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.back-arrow {
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #000;
+    border-left: 2px solid #000;
+    transform: rotate(-45deg);
+}
+
+/* 搜索框样式 */
+/* .search-container {
+    flex: 1;
+    height: 32px;
+    margin: 0 12px;
+    padding: 0 12px;
+    background: #f7f7f7;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.search-container icon {
+    margin-right: 4px;
+}
+
+.search-input {
+    flex: 1;
+    height: 32px;
+    font-size: 14px;
+    color: #333;
+} */
+
+/* 内容区域样式 */
+.search-content {
+    padding-top: 48px;
+    height: calc(100vh - env(safe-area-inset-top));
+    box-sizing: border-box;
+}
+
+/* 历史搜索样式 */
+.history-section {
+    padding: 0 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header .title {
+    font-size: 14px;
+    color: #999;
+}
+
+.clear-btn text {
+    font-size: 14px;
+    color: #576b95;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-item {
+    padding: 12px 0;
+    font-size: 17px;
+    color: #333;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+/* 搜索结果样式 */
+.search-results {
+    padding: 0 20px;
+}
+
+.result-item {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.result-item .thumbnail {
+    width: 120px;
+    height: 80px;
+    border-radius: 4px;
+    margin-right: 12px;
+}
+
+.result-item .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.result-item .title {
+    font-size: 17px;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.result-item .stats {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.result-item .author {
+    color: #666;
+}
+
+.result-item .dot {
+    margin: 0 4px;
+} 
