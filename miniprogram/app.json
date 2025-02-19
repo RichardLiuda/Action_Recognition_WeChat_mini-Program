@@ -10,7 +10,8 @@
     "pages/video-detail/video-detail",
     "pages/camera/camera",
     "pages/pose-result/pose-result",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/post-detail/post-detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

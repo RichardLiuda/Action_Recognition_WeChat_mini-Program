@@ -1,11 +1,66 @@
 <page-meta>
     <navigation-bar title="社区" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
-<view>
+<view class="community-container">
     <view class="search-container">
         <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" />
         <button class="search-button" bindtap="onSearch">
-            <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
+            <image class="search-icon" src="../../images/search.png" mode="aspectFit"></image>
         </button>
     </view>
+    <!-- 分类标签栏 -->
+    <scroll-view class="scrollx-box" scroll-x enable-flex>
+        <view class="scrollx-item {{activeTab === 'follow' ? 'active' : ''}}" bindtap="switchTab" data-tab="follow">
+            关注
+        </view>
+        <view class="scrollx-item {{activeTab === 'exercise' ? 'active' : ''}}" bindtap="switchTab" data-tab="exercise">
+            体操区
+        </view>
+        <view class="scrollx-item {{activeTab === 'dance' ? 'active' : ''}}" bindtap="switchTab" data-tab="dance">
+            舞蹈区
+        </view>
+    </scroll-view>
+    <!-- 内容列表 -->
+    <scroll-view scroll-y class="content-list">
+        <block wx:for="{{posts}}" wx:key="id">
+            <view class="post-card" bindtap="navigateToDetail" data-id="{{item.id}}">
+                <!-- 用户信息 -->
+                <view class="user-info" catch:tap="stopPropagation">
+                    <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+                    <view class="user-meta">
+                        <text class="username">{{item.username}}</text>
+                        <text class="post-time">{{item.timeAgo}}</text>
+                    </view>
+                    <button class="follow-btn {{item.isFollowed ? 'followed' : ''}}" catch:tap="toggleFollow" data-id="{{item.id}}">
+                        {{item.isFollowed ? '已关注' : '关注'}}
+                    </button>
+                </view>
+                <!-- 帖子内容 -->
+                <view class="post-content">
+                    <text class="post-text">{{item.content}}</text>
+                    <!-- 图片网格 -->
+                    <view class="image-grid" wx:if="{{item.images.length > 0}}">
+                        <image wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" src="{{img}}" mode="aspectFill" catch:tap="previewImage" data-urls="{{item.images}}" data-current="{{img}}"></image>
+                    </view>
+                </view>
+                <!-- 标签 -->
+                <view class="tags" wx:if="{{item.tags.length > 0}}">
+                    <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
+                        #{{tag}}
+                    </text>
+                </view>
+                <!-- 互动数据 -->
+                <view class="interaction-bar">
+                    <view class="interaction-item" catch:tap="handleLike" data-id="{{item.id}}">
+                        <image class="icon" src="../../images/icons/{{item.isLiked ? 'hand_thumbsup_fill.png' : 'hand_thumbsup.png'}}"></image>
+                        <text>{{item.likes}}</text>
+                    </view>
+                    <view class="interaction-item" catch:tap="handleComment" data-id="{{item.id}}">
+                        <image class="icon" src="../../images/icons/ellipsis_message.png"></image>
+                        <text>{{item.comments}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
 </view>

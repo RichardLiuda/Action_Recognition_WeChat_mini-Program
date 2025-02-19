@@ -185,6 +185,25 @@
 - 学习列表：`miniprogram/pages/learning/learning.ts` 第19-38行 (wantToLearnList)
 - 学习进度：需要在视频播放组件中添加进度记录功能
 
+### 9. 社区帖子表 (posts)
+需求来源：
+- 帖子详情页：`miniprogram/pages/post-detail/post-detail.ts`
+- 社区页面：`miniprogram/pages/community/community.ts`
+
+字段设计：
+- id: string (主键)
+- user_id: string (外键，关联用户表)
+- content: text (帖子内容)
+- images: string[] (图片URL数组)
+- likes_count: integer (点赞数)
+- comments_count: integer (评论数)
+- created_at: timestamp (创建时间)
+- updated_at: timestamp (更新时间)
+
+数据插入位置：
+- 帖子详情：`miniprogram/pages/post-detail/post-detail.ts` 第49-58行
+- 帖子列表：`miniprogram/pages/community/community.ts`
+
 ## 三、API 接口定义
 
 ### 1. 实时姿势评测
@@ -265,6 +284,168 @@ POST /api/comments/:id/like
 
 // 取消点赞
 POST /api/comments/:id/unlike
+```
+
+### 5. 社区帖子相关接口
+```typescript
+// 获取帖子列表
+GET /api/posts
+请求参数：
+{
+  page: number;      // 页码
+  pageSize: number;  // 每页条数
+  userId?: string;   // 可选，用户ID，获取指定用户的帖子
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    total: number,
+    items: [{
+      id: string;
+      content: string;
+      images: string[];
+      createTime: string;
+      likeCount: number;
+      commentCount: number;
+      isLiked: boolean;
+      userInfo: {
+        id: string;
+        avatarUrl: string;
+        nickName: string;
+      }
+    }]
+  }
+}
+
+// 获取帖子详情
+GET /api/posts/:id
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    id: string;
+    content: string;
+    images: string[];
+    createTime: string;
+    likeCount: number;
+    commentCount: number;
+    isLiked: boolean;
+    userInfo: {
+      id: string;
+      avatarUrl: string;
+      nickName: string;
+      isFollowed: boolean;
+    }
+  }
+}
+
+// 发布帖子
+POST /api/posts
+请求参数：
+{
+  content: string;   // 帖子内容
+  images: string[];  // 图片URL数组
+}
+
+// 删除帖子
+DELETE /api/posts/:id
+
+// 获取帖子评论列表
+GET /api/posts/:id/comments
+请求参数：
+{
+  page: number;      // 页码
+  pageSize: number;  // 每页条数
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    total: number,
+    items: [{
+      id: string;
+      content: string;
+      createTime: string;
+      userInfo: {
+        id: string;
+        avatarUrl: string;
+        nickName: string;
+      }
+    }]
+  }
+}
+
+// 发表评论
+POST /api/posts/:id/comments
+请求参数：
+{
+  content: string;   // 评论内容
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    id: string;
+    content: string;
+    createTime: string;
+    userInfo: {
+      id: string;
+      avatarUrl: string;
+      nickName: string;
+    }
+  }
+}
+
+// 点赞帖子
+POST /api/posts/:id/like
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    isLiked: boolean;
+    likeCount: number;
+  }
+}
+
+// 取消点赞
+POST /api/posts/:id/unlike
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    isLiked: boolean;
+    likeCount: number;
+  }
+}
+
+// 关注用户
+POST /api/users/:id/follow
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    isFollowed: boolean;
+  }
+}
+
+// 取消关注
+POST /api/users/:id/unfollow
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    isFollowed: boolean;
+  }
+}
 ```
 
 ## 四、注意事项
