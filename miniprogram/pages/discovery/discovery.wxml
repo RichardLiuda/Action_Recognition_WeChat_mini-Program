@@ -3,9 +3,9 @@
     <view class="title">发现</view>
 </view> -->
 <page-meta>
-    <navigation-bar title="发现" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+    <navigation-bar title="发现" back="{{true}}" color="black" background="#FFF" bind:heightchange="onNavBarHeightChange"></navigation-bar>
 </page-meta>
-<view>
+<page-container navBarHeight="{{navBarHeight}}" id="pageContainer">
     <view class="search-container">
         <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" />
         <button class="search-button" bindtap="onSearch">
@@ -33,4 +33,4 @@
             </block>
         </view>
     </view>
-</view>
+</page-container>

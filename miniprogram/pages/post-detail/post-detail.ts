@@ -36,6 +36,7 @@ interface ApiResponse<T> {
 
 Page({
   data: {
+    ios: true, // 默认为iOS
     post: {} as IPostDetail,
     comments: [] as IComment[],
     commentText: '',
@@ -47,6 +48,14 @@ Page({
   },
 
   onLoad(options) {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     if (options.id) {
       this.getPostDetail(options.id);
       this.getComments(options.id);

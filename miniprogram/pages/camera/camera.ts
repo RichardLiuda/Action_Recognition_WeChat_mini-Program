@@ -7,6 +7,7 @@ interface PoseData {
 
 Page({
   data: {
+    ios: true, // 默认为iOS
     accuracy: 0,
     progress: 0,
     poseName: '',
@@ -16,6 +17,14 @@ Page({
   ctx: null as any, // 相机上下文
 
   onLoad() {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     // 获取相机上下文
     this.ctx = wx.createCameraContext();
     

@@ -8,16 +8,11 @@
 }
 
 .weui-navigation-bar {
-	// position: fixed; /* 固定定位 */
-	// top: 0; /* 固定在页面顶部 */
-	// left: 0;
-	// width: 100%; /* 导航栏占满屏幕宽度 */
-	// height: 175rpx; /* 导航栏的高度 */
-	// background-color: #ffffff; /* 背景色 */
-	// z-index: 999; /* 确保层级高于其他内容 */
-	// display: flex; /* 使用 flex 布局 */
-	// align-items: center; /* 垂直居中 */
-	// justify-content: center; /* 水平居中 */
+	position: fixed; /* 固定定位 */
+	top: 0; /* 固定在页面顶部 */
+	left: 0;
+	width: 100%; /* 导航栏占满屏幕宽度 */
+	z-index: 9999; /* 确保层级高于其他内容 */
 	overflow: hidden;
 	color: var(--weui-FG-0);
 	flex: none;

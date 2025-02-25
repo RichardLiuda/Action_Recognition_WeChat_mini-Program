@@ -1,3 +1,7 @@
+<page-meta>
+    <navigation-bar title="Video-detail" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<page-container>
 <view class="nav-bar">
     <view class="back-btn" bindtap="onBackTap">
         <view class="back-arrow"></view>
@@ -99,3 +103,4 @@
 <view class="floating-btn-wrapper">
     <button class="start-learning-btn" bindtap="onStartLearning">开始学习</button>
 </view>
+</page-container>

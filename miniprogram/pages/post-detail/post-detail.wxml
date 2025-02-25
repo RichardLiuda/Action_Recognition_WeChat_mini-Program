@@ -1,65 +1,67 @@
 <page-meta>
     <navigation-bar title="动作智识" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
-<!-- 帖子详情页 -->
-<view class="post-detail">
-    <!-- 帖子卡片 -->
-    <view class="post-card">
-        <!-- 用户信息 -->
-        <view class="user-info">
-            <image class="avatar" src="{{post.userInfo.avatarUrl}}" mode="aspectFill"></image>
-            <view class="user-meta">
-                <text class="nickname">{{post.userInfo.nickName}}</text>
-                <text class="post-time">{{post.createTime}}</text>
-            </view>
-            <button class="follow-btn" bindtap="toggleFollow" wx:if="{{!post.userInfo.isFollowed}}">
-                关注
-            </button>
-            <button class="follow-btn followed" bindtap="toggleFollow" wx:else>已关注</button>
-        </view>
-        <!-- 帖子内容 -->
-        <view class="post-content">
-            <text class="text-content">{{post.content}}</text>
-            <view class="image-grid" wx:if="{{post.images.length > 0}}">
-                <image wx:for="{{post.images}}" wx:key="index" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}"></image>
-            </view>
-        </view>
-        <!-- 标签 -->
-        <view class="tags" wx:if="{{post.tags.length > 0}}">
-            <text class="tag" wx:for="{{post.tags}}" wx:key="*this">#{{item}}</text>
-        </view>
-    </view>
-    <!-- 评论列表 -->
-    <view class="comments-section">
-        <view class="comments-header">
-            <text class="comments-title">评论 {{post.commentCount || 0}}</text>
-        </view>
-        <view class="comment-list">
-            <view class="comment-item" wx:for="{{comments}}" wx:key="id">
-                <image class="comment-avatar" src="{{item.userInfo.avatarUrl}}" mode="aspectFill"></image>
-                <view class="comment-content">
-                    <text class="comment-nickname">{{item.userInfo.nickName}}</text>
-                    <text class="comment-text">{{item.content}}</text>
-                    <text class="comment-time">{{item.createTime}}</text>
+<page-container>
+    <!-- 帖子详情页 -->
+    <view class="post-detail">
+        <!-- 帖子卡片 -->
+        <view class="post-card">
+            <!-- 用户信息 -->
+            <view class="user-info">
+                <image class="avatar" src="{{post.userInfo.avatarUrl}}" mode="aspectFill"></image>
+                <view class="user-meta">
+                    <text class="nickname">{{post.userInfo.nickName}}</text>
+                    <text class="post-time">{{post.createTime}}</text>
                 </view>
-                <view class="comment-like" bindtap="toggleCommentLike" data-id="{{item.id}}">
-                    <image class="{{item.isLiked ? 'icon liked' : 'icon'}}" src="/images/icons/hand_thumbsup{{item.isLiked ? '_fill' : ''}}.png"></image>
-                    <text class="{{item.isLiked ? 'liked' : ''}}">{{item.likeCount || 0}}</text>
+                <button class="follow-btn" bindtap="toggleFollow" wx:if="{{!post.userInfo.isFollowed}}">
+                    关注
+                </button>
+                <button class="follow-btn followed" bindtap="toggleFollow" wx:else>已关注</button>
+            </view>
+            <!-- 帖子内容 -->
+            <view class="post-content">
+                <text class="text-content">{{post.content}}</text>
+                <view class="image-grid" wx:if="{{post.images.length > 0}}">
+                    <image wx:for="{{post.images}}" wx:key="index" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}"></image>
                 </view>
             </view>
-        </view>
-    </view>
-    <!-- 底部操作栏 -->
-    <view class="bottom-bar">
-        <view class="comment-input-section">
-            <input class="comment-input" placeholder="说点什么..." value="{{commentText}}" bindinput="onCommentInput" focus="{{showCommentInput}}" />
-            <view class="send-btn {{commentText.trim() ? 'active' : ''}}" bindtap="submitComment">
-                发送
+            <!-- 标签 -->
+            <view class="tags" wx:if="{{post.tags.length > 0}}">
+                <text class="tag" wx:for="{{post.tags}}" wx:key="*this">#{{item}}</text>
             </view>
         </view>
-        <view class="action-item" bindtap="toggleLike">
-            <image class="{{post.isLiked ? 'icon liked' : 'icon'}}" src="/images/icons/hand_thumbsup{{post.isLiked ? '_fill' : ''}}.png"></image>
-            <text class="{{post.isLiked ? 'liked' : ''}}">{{post.likeCount || 0}}</text>
+        <!-- 评论列表 -->
+        <view class="comments-section">
+            <view class="comments-header">
+                <text class="comments-title">评论 {{post.commentCount || 0}}</text>
+            </view>
+            <view class="comment-list">
+                <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+                    <image class="comment-avatar" src="{{item.userInfo.avatarUrl}}" mode="aspectFill"></image>
+                    <view class="comment-content">
+                        <text class="comment-nickname">{{item.userInfo.nickName}}</text>
+                        <text class="comment-text">{{item.content}}</text>
+                        <text class="comment-time">{{item.createTime}}</text>
+                    </view>
+                    <view class="comment-like" bindtap="toggleCommentLike" data-id="{{item.id}}">
+                        <image class="{{item.isLiked ? 'icon liked' : 'icon'}}" src="/images/icons/hand_thumbsup{{item.isLiked ? '_fill' : ''}}.png"></image>
+                        <text class="{{item.isLiked ? 'liked' : ''}}">{{item.likeCount || 0}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- 底部操作栏 -->
+        <view class="bottom-bar">
+            <view class="comment-input-section">
+                <input class="comment-input" placeholder="说点什么..." value="{{commentText}}" bindinput="onCommentInput" focus="{{showCommentInput}}" />
+                <view class="send-btn {{commentText.trim() ? 'active' : ''}}" bindtap="submitComment">
+                    发送
+                </view>
+            </view>
+            <view class="action-item" bindtap="toggleLike">
+                <image class="{{post.isLiked ? 'icon liked' : 'icon'}}" src="/images/icons/hand_thumbsup{{post.isLiked ? '_fill' : ''}}.png"></image>
+                <text class="{{post.isLiked ? 'liked' : ''}}">{{post.likeCount || 0}}</text>
+            </view>
         </view>
     </view>
-</view>
+</page-container>

@@ -13,6 +13,7 @@ interface PoseResult {
 
 Page({
   data: {
+    ios: true, // 默认为iOS
     finalScore: 0,
     accuracy: 0,
     completion: 0,
@@ -21,6 +22,14 @@ Page({
   },
 
   onLoad(options) {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     // 使用示例数据
     const mockData: PoseResult = {
       finalScore: 92,

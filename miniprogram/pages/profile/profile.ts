@@ -4,6 +4,7 @@ interface IPageData {
   fansCount: number;
   introduction: string;
   isLoading: boolean;
+  ios: boolean;
 }
 
 interface IPageMethods {
@@ -38,11 +39,21 @@ Page<IPageData, IPageMethods>({
     followCount: 52,
     fansCount: 22,
     introduction: '',
-    isLoading: true
+    isLoading: true,
+    ios: true, // 默认为iOS
   },
 
   onLoad() {
     this.fetchUserProfile();
+    
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
   },
 
   // 获取用户资料

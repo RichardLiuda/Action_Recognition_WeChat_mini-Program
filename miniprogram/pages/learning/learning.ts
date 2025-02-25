@@ -1,5 +1,6 @@
 Page({
 	data: {
+    ios: true, // 默认为iOS
 		searchQuery: '',
 		activeTab: 0, // 当前活动标签
 		images: [
@@ -93,7 +94,15 @@ Page({
 		});
 	},
 
-	onLoad(options) {},
+	onLoad(options) {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });},
 	onReady() {},
 	onShow() {},
 	onHide() {},

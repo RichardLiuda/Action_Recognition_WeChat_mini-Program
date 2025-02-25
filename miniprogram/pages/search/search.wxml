@@ -2,6 +2,7 @@
 <page-meta>
     <navigation-bar title="搜索" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
+<page-container>
 <view>
     <!-- <view class="container"> -->
     <!-- <view class="back-btn" bindtap="onBackTap">
@@ -44,3 +45,4 @@
     </scroll-view>
     <!-- </view> -->
 </view>
+</page-container>

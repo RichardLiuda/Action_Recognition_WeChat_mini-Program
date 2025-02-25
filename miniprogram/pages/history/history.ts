@@ -34,6 +34,7 @@ interface QueueItem {
 
 Page<IPageData, IPageMethods>({
   data: {
+    ios: true, // 默认为iOS
     currentType: 'video',
     historyList: [],
     page: 1,
@@ -44,6 +45,14 @@ Page<IPageData, IPageMethods>({
   },
 
   onLoad() {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     this.fetchHistory();
   },
 

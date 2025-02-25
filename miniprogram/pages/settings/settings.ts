@@ -64,6 +64,7 @@ const defaultSettings: IPageData['settings'] = {
 
 Page<IPageData, IPageMethods>({
   data: {
+    ios: true, // 默认为iOS
     settings: defaultSettings,
     visibilityOptions: ['公开', '仅关注者可见', '私密'],
     visibilityIndex: 0,
@@ -72,6 +73,14 @@ Page<IPageData, IPageMethods>({
   },
 
   onLoad() {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     // 先加载本地设置
     const localSettings = this.loadLocalSettings();
     if (localSettings) {

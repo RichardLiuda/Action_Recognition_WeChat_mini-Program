@@ -55,7 +55,8 @@ Component({
 	 * 组件的初始数据
 	 */
 	data: {
-		displayStyle: ''
+		displayStyle: '',
+		navBarHeight: 44 // 默认导航栏高度
 	},
 	lifetimes: {
 		attached() {
@@ -64,17 +65,28 @@ Component({
 				success: (res) => {
 					const isAndroid = res.platform === 'android'
 					const isDevtools = res.platform === 'devtools'
+					
+					// 计算导航栏高度
+					// 导航栏高度 = 状态栏高度 + 导航栏内容高度
+					const statusBarHeight = res.statusBarHeight || 0
+					const navBarContentHeight = isAndroid ? 48 : 44
+					const navBarHeight = statusBarHeight + navBarContentHeight
+					
 					this.setData({
 						ios: !isAndroid,
+						navBarHeight: navBarHeight,
 						innerPaddingRight: `padding-right: ${
 							res.windowWidth - rect.left
 						}px`,
 						leftWidth: `width: ${res.windowWidth - rect.left}px`,
 						safeAreaTop:
 							isDevtools || isAndroid
-								? `height: calc(var(--height) + ${res.safeArea.top}px);padding-top: ${res.safeArea.top}px`
-								: ``
+								? `height: calc(var(--height) + ${statusBarHeight}px);padding-top: ${statusBarHeight}px`
+								: `height: calc(var(--height) + ${statusBarHeight}px);padding-top: ${statusBarHeight}px`
 					})
+					
+					// 通知页面容器更新内边距
+					this.triggerEvent('heightchange', { height: navBarHeight }, {})
 				}
 			})
 		}

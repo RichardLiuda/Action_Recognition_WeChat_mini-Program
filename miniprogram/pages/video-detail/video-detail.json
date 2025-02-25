@@ -1,5 +1,7 @@
 {
   "navigationStyle": "custom",
   "navigationBarTitleText": "视频详情",
-  "usingComponents": {}
-} 
+  "usingComponents": {
+    "page-container": "/components/page-container/page-container"
+  }
+}

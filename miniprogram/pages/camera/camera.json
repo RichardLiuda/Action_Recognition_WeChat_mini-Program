@@ -1,6 +1,10 @@
 {
   "navigationStyle": "custom",
   "disableScroll": true,
-  "usingComponents": {},
-  "requiredBackgroundModes": ["camera"]
-} 
+  "usingComponents": {
+    "page-container": "/components/page-container/page-container"
+  },
+  "requiredBackgroundModes": [
+    "camera"
+  ]
+}

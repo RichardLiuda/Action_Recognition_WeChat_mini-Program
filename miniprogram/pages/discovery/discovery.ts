@@ -11,6 +11,8 @@ Page({
 		], // 选项数据，以后跟数据库链接
 		activeTab: 0, // 当前选中项的索引
 		videoContentIndex: 0,
+		ios: true, // 默认为iOS
+		navBarHeight: 0, // 导航栏高度
 		videoRows: [
 			[
 				[
@@ -149,6 +151,23 @@ Page({
 		]
 	},
 
+	onLoad() {
+		// 判断平台
+		wx.getSystemInfo({
+			success: (res) => {
+				const isAndroid = res.platform === 'android'
+				const statusBarHeight = res.statusBarHeight || 0
+				const navBarContentHeight = isAndroid ? 48 : 44
+				const navBarHeight = statusBarHeight + navBarContentHeight
+				
+				this.setData({
+					ios: !isAndroid,
+					navBarHeight: navBarHeight
+				});
+			}
+		});
+	},
+
 	// 获取输入框的内容
 	onInput(event: any) {
 		const value = event.detail.value;
@@ -192,5 +211,20 @@ Page({
 		wx.navigateTo({
 			url: `/pages/video-detail/video-detail?id=${videoId}`
 		});
+	},
+
+	// 处理导航栏高度变化
+	onNavBarHeightChange(e: {detail: {height: number}}) {
+		if (e.detail && e.detail.height) {
+			this.setData({
+				navBarHeight: e.detail.height
+			});
+			
+			// 获取页面容器组件
+			const pageContainer = this.selectComponent('#pageContainer');
+			if (pageContainer) {
+				pageContainer.onNavBarHeightChange(e);
+			}
+		}
 	}
 })

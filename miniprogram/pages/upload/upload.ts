@@ -1,10 +1,22 @@
 Page({
 	data: {
+    ios: true, // 默认为iOS
 		visibilityOptions: ['公开可见', '好友可见', '仅自己可见'], // 可见范围选项
 		visibility: '公开可见', // 当前选中的可见范围
 		content: '', // 输入的正文内容
 		imagePath: '' // 上传的图片路径
 	},
+
+  onLoad() {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
+  },
 
 	// 上传图片
 	onUploadImage() {

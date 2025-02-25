@@ -1,5 +1,6 @@
 Page({
   data: {
+    ios: true, // 默认为iOS
     video: {
       id: '',
       title: '',
@@ -48,6 +49,14 @@ Page({
   },
 
   onLoad(options) {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
     if (options.id) {
       // TODO: 根据id获取视频详情
       this.getVideoDetail(options.id);

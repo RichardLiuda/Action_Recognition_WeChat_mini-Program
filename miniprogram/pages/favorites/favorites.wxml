@@ -1,6 +1,7 @@
 <page-meta>
     <navigation-bar title="收藏" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
+<page-container>
 <view class="favorites-container">
     <!-- 类型切换 -->
     <view class="type-tabs">
@@ -56,3 +57,4 @@
         <text>暂无收藏内容</text>
     </view>
 </view>
+</page-container>

@@ -1,6 +1,7 @@
 {
-    "navigationBarTitleText": "搜索",
-        "usingComponents": {
-        "navigation-bar": "/components/navigation-bar/navigation-bar"
-    }
-} 
+  "navigationBarTitleText": "搜索",
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    "page-container": "/components/page-container/page-container"
+  }
+}

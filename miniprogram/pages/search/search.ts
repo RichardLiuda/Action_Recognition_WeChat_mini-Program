@@ -26,12 +26,21 @@ interface ICustom {
 
 Page<IData, ICustom>({
     data: {
+    ios: true, // 默认为iOS
         searchQuery: '', // 搜索关键词
         searchHistory: [], // 搜索历史
         searchResults: [], // 搜索结果
     },
 
     onLoad(options) {
+    // 判断平台
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          ios: res.platform !== 'android'
+        });
+      }
+    });
         // 从本地存储加载搜索历史
         const history = wx.getStorageSync('searchHistory') || [];
         this.setData({ searchHistory: history });

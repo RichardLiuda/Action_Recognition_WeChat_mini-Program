@@ -1,9 +1,7 @@
 <page-meta>
     <navigation-bar title="我的" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
-<view></view>
-<!-- 个人资料页面 -->
-<view class="profile-container">
+<page-container>
     <!-- 加载状态 -->
     <view class="loading-mask" wx:if="{{isLoading}}">
         <view class="loading">加载中...</view>
@@ -51,4 +49,4 @@
             <image class="arrow" src="/images/icons/arrow-right.png"></image>
         </view>
     </view>
-</view>
+</page-container>

@@ -1,3 +1,7 @@
+<page-meta>
+    <navigation-bar title="Logs" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<page-container>
 <!--logs.wxml-->
 <navigation-bar title="查看启动日志" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
@@ -5,3 +9,5 @@
     <view class="log-item">{{index + 1}}. {{log.date}}</view>
   </block>
 </scroll-view>
+
+</page-container>
