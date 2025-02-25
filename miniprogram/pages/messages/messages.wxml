@@ -1,0 +1,52 @@
+<page-meta>
+    <navigation-bar title="消息" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view class="messages-container">
+    <!-- 消息类型切换 -->
+    <view class="type-tabs">
+        <view class="tab-item {{currentType === 'all' ? 'active' : ''}}" bindtap="onTabChange" data-type="all">
+            全部
+        </view>
+        <view class="tab-item {{currentType === 'interaction' ? 'active' : ''}}" bindtap="onTabChange" data-type="interaction">
+            互动
+        </view>
+        <view class="tab-item {{currentType === 'system' ? 'active' : ''}}" bindtap="onTabChange" data-type="system">
+            系统
+        </view>
+    </view>
+    <!-- 消息列表 -->
+    <scroll-view scroll-y class="message-list" bindscrolltolower="onLoadMore" refresher-enabled="{{true}}" refresher-triggered="{{isRefreshing}}" bindrefresherrefresh="onRefresh">
+        <view class="message-item {{item.isRead ? '' : 'unread'}}" wx:for="{{messageList}}" wx:key="id" bindtap="onTapMessage" data-id="{{item.id}}" data-type="{{item.type}}">
+            <!-- 系统消息 -->
+            <block wx:if="{{item.type === 'system'}}">
+                <image class="system-icon" src="/images/icons/gearshape.png"></image>
+                <view class="content">
+                    <view class="title">系统通知</view>
+                    <view class="message">{{item.content}}</view>
+                    <view class="time">{{item.createTime}}</view>
+                </view>
+            </block>
+            <!-- 互动消息 -->
+            <block wx:else>
+                <image class="avatar" src="{{item.sender.avatarUrl}}" mode="aspectFill"></image>
+                <view class="content">
+                    <view class="title">{{item.sender.nickName}}</view>
+                    <view class="message">{{item.content}}</view>
+                    <view class="time">{{item.createTime}}</view>
+                </view>
+            </block>
+            <!-- 未读标记 -->
+            <view class="unread-dot" wx:if="{{!item.isRead}}"></view>
+        </view>
+        <!-- 加载状态 -->
+        <view class="loading-state">
+            <view wx:if="{{isLoading}}" class="loading">加载中...</view>
+            <view wx:elif="{{!hasMore}}" class="no-more">没有更多消息了</view>
+        </view>
+    </scroll-view>
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!isLoading && messageList.length === 0}}">
+        <image src="/images/486o.jpg" mode="aspectFit"></image>
+        <text>暂无消息</text>
+    </view>
+</view>

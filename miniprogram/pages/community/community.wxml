@@ -45,9 +45,7 @@
                 </view>
                 <!-- 标签 -->
                 <view class="tags" wx:if="{{item.tags.length > 0}}">
-                    <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
-                        #{{tag}}
-                    </text>
+                    <text class="tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
                 </view>
                 <!-- 互动数据 -->
                 <view class="interaction-bar">

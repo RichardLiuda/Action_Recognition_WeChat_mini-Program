@@ -1,0 +1,58 @@
+<page-meta>
+    <navigation-bar title="收藏" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view class="favorites-container">
+    <!-- 类型切换 -->
+    <view class="type-tabs">
+        <view class="tab-item {{currentType === 'video' ? 'active' : ''}}" bindtap="onTabChange" data-type="video">
+            视频
+        </view>
+        <view class="tab-item {{currentType === 'post' ? 'active' : ''}}" bindtap="onTabChange" data-type="post">
+            帖子
+        </view>
+    </view>
+    <!-- 收藏列表 -->
+    <scroll-view scroll-y class="favorites-list" bindscrolltolower="onLoadMore" refresher-enabled="{{true}}" refresher-triggered="{{isRefreshing}}" bindrefresherrefresh="onRefresh">
+        <!-- 视频列表 -->
+        <block wx:if="{{currentType === 'video'}}">
+            <view class="video-item" wx:for="{{favoritesList}}" wx:key="id" bindtap="onTapVideo" data-id="{{item.id}}">
+                <image class="cover" src="{{item.coverUrl}}" mode="aspectFill"></image>
+                <view class="info">
+                    <view class="title">{{item.title}}</view>
+                    <view class="author">
+                        <image class="avatar" src="{{item.author.avatarUrl}}" mode="aspectFill"></image>
+                        <text>{{item.author.nickName}}</text>
+                    </view>
+                    <view class="meta">
+                        <text class="time">{{item.createTime}}</text>
+                        <text class="duration" wx:if="{{item.duration}}">{{item.duration}}分钟</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <!-- 帖子列表 -->
+        <block wx:else>
+            <view class="post-item" wx:for="{{favoritesList}}" wx:key="id" bindtap="onTapPost" data-id="{{item.id}}">
+                <view class="header">
+                    <image class="avatar" src="{{item.author.avatarUrl}}" mode="aspectFill"></image>
+                    <text class="nickname">{{item.author.nickName}}</text>
+                    <text class="time">{{item.createTime}}</text>
+                </view>
+                <view class="content">{{item.title}}</view>
+                <view class="images" wx:if="{{item.coverUrl}}">
+                    <image src="{{item.coverUrl}}" mode="aspectFill"></image>
+                </view>
+            </view>
+        </block>
+        <!-- 加载状态 -->
+        <view class="loading-state">
+            <view wx:if="{{isLoading}}" class="loading">加载中...</view>
+            <view wx:elif="{{!hasMore}}" class="no-more">没有更多了</view>
+        </view>
+    </scroll-view>
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!isLoading && favoritesList.length === 0}}">
+        <image src="/images/486o.jpg" mode="aspectFit"></image>
+        <text>暂无收藏内容</text>
+    </view>
+</view>

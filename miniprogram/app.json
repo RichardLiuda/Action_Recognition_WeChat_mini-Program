@@ -11,7 +11,11 @@
     "pages/camera/camera",
     "pages/pose-result/pose-result",
     "pages/search/search",
-    "pages/post-detail/post-detail"
+    "pages/post-detail/post-detail",
+    "pages/settings/settings",
+    "pages/history/history",
+    "pages/messages/messages",
+    "pages/favorites/favorites"
   ],
   "window": {
     "navigationBarTextStyle": "black",

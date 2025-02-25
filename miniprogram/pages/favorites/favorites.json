@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "收藏",
+    "usingComponents": {
+        "navigation-bar": "/components/navigation-bar/navigation-bar"
+    }
+} 

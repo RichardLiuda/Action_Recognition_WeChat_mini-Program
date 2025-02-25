@@ -1,0 +1,51 @@
+<page-meta>
+    <navigation-bar title="设置" back="{{true}}" color="black" background="#FFF"></navigation-bar>
+</page-meta>
+<view class="settings-container">
+    <!-- 通知设置 -->
+    <view class="settings-section">
+        <view class="section-title">通知设置</view>
+        <view class="settings-item">
+            <text>接收消息通知</text>
+            <switch checked="{{settings.notificationEnabled}}" bindchange="onNotificationChange" color="#07c160" />
+        </view>
+    </view>
+    <!-- 隐私设置 -->
+    <view class="settings-section">
+        <view class="section-title">隐私设置</view>
+        <view class="settings-item">
+            <text>视频可见性</text>
+            <picker bindchange="onVisibilityChange" value="{{visibilityIndex}}" range="{{visibilityOptions}}">
+                <view class="picker">
+                    {{visibilityOptions[visibilityIndex]}}
+                    <image class="arrow" src="/images/icons/arrow-right.png"></image>
+                </view>
+            </picker>
+        </view>
+        <view class="settings-item">
+            <text>允许评论</text>
+            <switch checked="{{settings.privacySettings.allowComment}}" bindchange="onCommentChange" color="#07c160" />
+        </view>
+        <view class="settings-item">
+            <text>允许私信</text>
+            <switch checked="{{settings.privacySettings.allowMessage}}" bindchange="onMessageChange" color="#07c160" />
+        </view>
+    </view>
+    <!-- 账号设置 -->
+    <view class="settings-section">
+        <view class="section-title">账号设置</view>
+        <view class="settings-item" bindtap="onTapClearCache">
+            <text>清除缓存</text>
+            <view class="right-content">
+                <text class="cache-size">{{cacheSize}}</text>
+                <image class="arrow" src="/images/icons/arrow-right.png"></image>
+            </view>
+        </view>
+        <view class="settings-item" bindtap="onTapAbout">
+            <text>关于我们</text>
+            <image class="arrow" src="/images/icons/arrow-right.png"></image>
+        </view>
+    </view>
+    <!-- 退出登录 -->
+    <view class="logout-button" bindtap="onTapLogout">退出登录</view>
+</view>

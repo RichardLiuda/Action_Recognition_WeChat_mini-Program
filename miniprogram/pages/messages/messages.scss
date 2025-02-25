@@ -1,0 +1,134 @@
+page {
+  background: #f8f8f8;
+}
+
+.messages-container {
+  min-height: 100vh;
+  padding: 0;
+  
+  .type-tabs {
+    display: flex;
+    background: #fff;
+    padding: 20rpx 30rpx;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    
+    .tab-item {
+      flex: 1;
+      text-align: center;
+      font-size: 28rpx;
+      color: #666;
+      position: relative;
+      padding: 10rpx 0;
+      
+      &.active {
+        color: #07c160;
+        font-weight: 500;
+        
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: -10rpx;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 40rpx;
+          height: 4rpx;
+          background: #07c160;
+          border-radius: 2rpx;
+        }
+      }
+    }
+  }
+
+  .message-list {
+    height: calc(100vh - 88rpx);
+    padding: 20rpx;
+    box-sizing: border-box;
+    
+    .message-item {
+      background: #fff;
+      border-radius: 12rpx;
+      padding: 20rpx;
+      margin-bottom: 20rpx;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      
+      &.unread {
+        background: rgba(7, 193, 96, 0.05);
+      }
+      
+      .system-icon,
+      .avatar {
+        width: 80rpx;
+        height: 80rpx;
+        border-radius: 50%;
+        margin-right: 20rpx;
+      }
+      
+      .content {
+        flex: 1;
+        
+        .title {
+          font-size: 28rpx;
+          color: #333;
+          margin-bottom: 10rpx;
+          font-weight: 500;
+        }
+        
+        .message {
+          font-size: 26rpx;
+          color: #666;
+          line-height: 1.5;
+          margin-bottom: 10rpx;
+        }
+        
+        .time {
+          font-size: 24rpx;
+          color: #999;
+        }
+      }
+      
+      .unread-dot {
+        position: absolute;
+        top: 20rpx;
+        right: 20rpx;
+        width: 16rpx;
+        height: 16rpx;
+        background: #ff4d4f;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .loading-state {
+    text-align: center;
+    padding: 20rpx 0;
+    
+    .loading,
+    .no-more {
+      font-size: 24rpx;
+      color: #999;
+    }
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200rpx;
+    
+    image {
+      width: 200rpx;
+      height: 200rpx;
+      margin-bottom: 20rpx;
+    }
+    
+    text {
+      font-size: 28rpx;
+      color: #999;
+    }
+  }
+} 

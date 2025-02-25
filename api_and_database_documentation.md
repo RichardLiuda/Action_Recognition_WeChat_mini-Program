@@ -204,6 +204,24 @@
 - 帖子详情：`miniprogram/pages/post-detail/post-detail.ts` 第49-58行
 - 帖子列表：`miniprogram/pages/community/community.ts`
 
+### 10. 收藏表 (favorites)
+需求来源：
+- 收藏页面：`miniprogram/pages/favorites/favorites.ts`
+- 视频详情页：`miniprogram/pages/video-detail/video-detail.ts`
+- 帖子详情页：`miniprogram/pages/post-detail/post-detail.ts`
+
+字段设计：
+- id: string (主键)
+- user_id: string (外键，关联用户表)
+- target_id: string (被收藏对象ID)
+- target_type: enum ('video', 'post') (收藏类型)
+- created_at: timestamp (创建时间)
+- updated_at: timestamp (更新时间)
+
+数据插入位置：
+- 收藏列表：`miniprogram/pages/favorites/favorites.ts` 第37-54行
+- 收藏状态：`miniprogram/pages/video-detail/video-detail.ts` 和 `miniprogram/pages/post-detail/post-detail.ts`
+
 ## 三、API 接口定义
 
 ### 1. 实时姿势评测
@@ -448,6 +466,239 @@ POST /api/users/:id/unfollow
 }
 ```
 
+### 6. 用户相关接口
+```typescript
+// 获取用户个人资料
+GET /api/users/profile
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    id: string;
+    nickname: string;
+    avatarUrl: string;
+    introduction: string;
+    followingCount: number;
+    followersCount: number;
+  }
+}
+
+// 更新用户简介
+PUT /api/users/introduction
+请求参数：
+{
+  introduction: string;  // 用户简介
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    introduction: string;
+  }
+}
+
+// 获取用户消息列表
+GET /api/users/messages
+请求参数：
+{
+  page: number;      // 页码
+  pageSize: number;  // 每页条数
+  type?: string;     // 消息类型：'system' | 'interaction' | 'follow'
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    total: number,
+    items: [{
+      id: string;
+      type: string;
+      content: string;
+      isRead: boolean;
+      createTime: string;
+      sender?: {
+        id: string;
+        avatarUrl: string;
+        nickName: string;
+      }
+    }]
+  }
+}
+
+// 获取用户历史记录
+GET /api/users/history
+请求参数：
+{
+  page: number;      // 页码
+  pageSize: number;  // 每页条数
+  type?: string;     // 记录类型：'video' | 'post'
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    total: number,
+    items: [{
+      id: string;
+      type: string;
+      title: string;
+      coverUrl: string;
+      createTime: string;
+      duration?: number;    // 视频时长
+    }]
+  }
+}
+
+// 获取用户收藏列表
+GET /api/users/favorites
+请求参数：
+{
+  page: number;      // 页码
+  pageSize: number;  // 每页条数
+  type?: string;     // 收藏类型：'video' | 'post'
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    total: number,
+    items: [{
+      id: string;
+      type: string;
+      title: string;
+      coverUrl: string;
+      createTime: string;
+      duration?: number;    // 仅视频类型有此字段
+      author: {
+        id: string;
+        avatarUrl: string;
+        nickName: string;
+      }
+    }]
+  }
+}
+
+// 添加收藏
+POST /api/favorites
+请求参数：
+{
+  targetId: string;   // 收藏目标ID
+  targetType: string; // 收藏类型：'video' | 'post'
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    id: string;      // 收藏记录ID
+    isFavorited: true
+  }
+}
+
+// 取消收藏
+DELETE /api/favorites/:id
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    isFavorited: false
+  }
+}
+
+// 批量检查收藏状态
+POST /api/favorites/check
+请求参数：
+{
+  items: [{
+    targetId: string;
+    targetType: string;
+  }]
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    results: [{
+      targetId: string;
+      isFavorited: boolean;
+    }]
+  }
+}
+
+// 用户设置同步接口
+GET /api/users/settings
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    notificationEnabled: boolean;  // 是否开启通知
+    privacySettings: {            // 隐私设置
+      videoVisibility: 'public' | 'friends' | 'private';  // 视频可见性
+      allowComment: boolean;      // 是否允许评论
+      allowMessage: boolean;      // 是否允许私信
+    }
+  }
+}
+
+// 更新用户设置
+PUT /api/users/settings
+请求参数：
+{
+  notificationEnabled?: boolean;  // 可选，是否开启通知
+  privacySettings?: {            // 可选，隐私设置
+    videoVisibility?: 'public' | 'friends' | 'private';  // 可选，视频可见性
+    allowComment?: boolean;      // 可选，是否允许评论
+    allowMessage?: boolean;      // 可选，是否允许私信
+  }
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    notificationEnabled: boolean;
+    privacySettings: {
+      videoVisibility: string;
+      allowComment: boolean;
+      allowMessage: boolean;
+    }
+  }
+}
+
+// 批量同步设置（用于离线数据同步）
+POST /api/users/settings/sync
+请求参数：
+{
+  settings: [{
+    notificationEnabled?: boolean;
+    privacySettings?: {
+      videoVisibility?: 'public' | 'friends' | 'private';
+      allowComment?: boolean;
+      allowMessage?: boolean;
+    },
+    timestamp: number;  // 设置变更的时间戳
+  }]
+}
+响应数据：
+{
+  code: 200,
+  message: "success",
+  data: {
+    syncedCount: number;  // 成功同步的设置数量
+    failedCount: number;  // 同步失败的设置数量
+    lastSyncTime: number; // 最后同步时间戳
+  }
+}
+```
+
 ## 四、注意事项
 
 ### 1. 数据库索引
@@ -455,27 +706,87 @@ POST /api/users/:id/unfollow
 - videos表：user_id, category_id (普通索引)
 - pose_evaluations表：user_id, video_id, session_id (联合索引)
 - comments表：video_id, user_id (普通索引)
+- favorites表：user_id, target_id, target_type (联合索引)
 
 ### 2. 安全性考虑
 - 所有接口需要进行用户身份验证
 - 视频流数据传输建议使用 WSS (WebSocket Secure)
 - 评测数据需要进行加密处理
+- 收藏操作需要进行用户身份验证
 
 ### 3. 性能优化
 - 使用 Redis 缓存热门视频和评测结果
 - 评测数据建议采用分布式存储
 - WebSocket 连接需要心跳检测和断线重连
 - 视频流数据建议采用 H.264 编码
+- 使用Redis缓存热门收藏数据
+- 收藏列表支持分页加载
+- 批量检查接口使用IN查询优化
 
 ### 4. 错误处理
 - 200: 成功
 - 400: 请求参数错误
 - 401: 未授权
 - 404: 资源不存在
+- 409: 重复收藏
 - 500: 服务器错误
 
 ### 5. 数据存储
 - 视频文件存储在对象存储服务
 - 评测数据定期归档
 - 用户数据需要定期备份
-- 评测结果保存24小时后自动清理 
+- 评测结果保存24小时后自动清理
+
+### 6. 数据库设计补充
+```sql
+-- 用户设置表 (user_settings)
+CREATE TABLE user_settings (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(50) NOT NULL,
+  notification_enabled BOOLEAN DEFAULT true,
+  video_visibility VARCHAR(20) DEFAULT 'public',
+  allow_comment BOOLEAN DEFAULT true,
+  allow_message BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 设置变更历史表 (setting_change_history)
+CREATE TABLE setting_change_history (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(50) NOT NULL,
+  setting_key VARCHAR(50) NOT NULL,
+  old_value TEXT,
+  new_value TEXT,
+  changed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- 索引
+CREATE INDEX idx_user_settings_user_id ON user_settings(user_id);
+CREATE INDEX idx_setting_history_user_id ON setting_change_history(user_id);
+CREATE INDEX idx_setting_history_changed_at ON setting_change_history(changed_at);
+```
+
+### 7. 注意事项
+1. 设置同步策略：
+   - 本地优先：设置变更立即在本地生效，同时尝试同步到服务器
+   - 离线支持：网络不可用时将变更存入同步队列
+   - 定期同步：页面显示时检查并处理同步队列
+   - 冲突处理：以最新时间戳为准
+
+2. 性能优化：
+   - 使用本地存储缓存设置
+   - 批量同步减少请求次数
+   - 设置变更历史保留30天
+
+3. 安全性：
+   - 所有设置接口需要用户登录
+   - 敏感设置变更需要验证
+   - 记录设置变更历史便于回溯
+
+4. 错误处理：
+   - 本地存储失败降级为实时请求
+   - 同步失败自动重试
+   - 提供手动同步功能 

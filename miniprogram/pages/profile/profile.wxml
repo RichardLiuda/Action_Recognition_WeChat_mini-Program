@@ -1,11 +1,54 @@
 <page-meta>
     <navigation-bar title="我的" back="{{true}}" color="black" background="#FFF"></navigation-bar>
 </page-meta>
-<view>
-    <view class="search-container">
-        <input class="search-input" type="text" placeholder="请输入搜索内容" bindinput="onInput" bindconfirm="onSearch" value="{{searchQuery}}" />
-        <button class="search-button" bindtap="onSearch">
-            <image class="search-icon" src="../../images/search.png" mode="aspectFit" binderror="" bindload=""></image>
-        </button>
+<view></view>
+<!-- 个人资料页面 -->
+<view class="profile-container">
+    <!-- 加载状态 -->
+    <view class="loading-mask" wx:if="{{isLoading}}">
+        <view class="loading">加载中...</view>
+    </view>
+    <!-- 用户信息区域 -->
+    <view class="user-info">
+        <image class="avatar" src="/images/486o.jpg" mode="aspectFill"></image>
+        <view class="name">{{userInfo.nickName}}</view>
+        <view class="edit-intro" bindtap="onTapEditIntro">
+            <text wx:if="{{!introduction}}">点击这里，填写简介</text>
+            <text wx:else>{{introduction}}</text>
+        </view>
+        <!-- 关注和粉丝数 -->
+        <view class="stats">
+            <view class="stat-item">
+                <text class="number">{{followCount}}</text>
+                <text class="label">关注</text>
+            </view>
+            <view class="stat-item">
+                <text class="number">{{fansCount}}</text>
+                <text class="label">粉丝</text>
+            </view>
+        </view>
+    </view>
+    <!-- 功能列表 -->
+    <view class="function-list">
+        <view class="function-item" bindtap="onTapSettings">
+            <image class="icon" src="/images/icons/gearshape.png"></image>
+            <text>设置</text>
+            <image class="arrow" src="/images/icons/arrow-right.png"></image>
+        </view>
+        <view class="function-item" bindtap="onTapHistory">
+            <image class="icon" src="/images/icons/clock.png"></image>
+            <text>历史记录</text>
+            <image class="arrow" src="/images/icons/arrow-right.png"></image>
+        </view>
+        <view class="function-item" bindtap="onTapMessages">
+            <image class="icon" src="/images/icons/ellipsis_message.png"></image>
+            <text>消息</text>
+            <image class="arrow" src="/images/icons/arrow-right.png"></image>
+        </view>
+        <view class="function-item" bindtap="onTapFavorites">
+            <image class="icon" src="/images/icons/star.png"></image>
+            <text>收藏</text>
+            <image class="arrow" src="/images/icons/arrow-right.png"></image>
+        </view>
     </view>
 </view>
