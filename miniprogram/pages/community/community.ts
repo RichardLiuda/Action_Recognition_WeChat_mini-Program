@@ -262,8 +262,12 @@ Page({
       posts: updatedPosts
     });
 
+    // 查找更新后的帖子，使用传统的条件检查方式
+    const updatedPost = updatedPosts.find(p => p.id === id);
+    const followStatus = updatedPost ? (updatedPost.isFollowed ? '已关注' : '已取消关注') : '已取消关注';
+    
     wx.showToast({
-      title: updatedPosts.find(p => p.id === id)?.isFollowed ? '已关注' : '已取消关注',
+      title: followStatus,
       icon: 'none'
     });
   },
